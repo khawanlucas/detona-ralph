@@ -3,13 +3,15 @@ const state = {
         squares: document.querySelectorAll(".square"),
         enemy: document.querySelector(".enemy"),
         timeLeft : document.querySelector("#time-left"),
-        score : document.querySelector("#score")
+        score : document.querySelector("#score"),
+        lives: document.querySelector('#lives')
     },
     values: {
         gameVelocity: 1000,
         hitPosition: 0,
         result: 0,
-        currentTime: 60
+        currentTime: 60,
+        currentLives: 3
     },
     actions:{
         timerId: setInterval(randomSquare, 1000),
@@ -21,12 +23,15 @@ function countDown(){
     state.values.currentTime--
     state.view.timeLeft.textContent = state.values.currentTime
 
-
     if(state.values.currentTime <= 0){
-        clearInterval(state.actions.timerId)
-        clearInterval(state.actions.countDownTimerId)
-        alert('Game Over! O seu resultado foi: ' + state.values.result)
+        gameOver()
     }
+}
+
+function gameOver(){
+    clearInterval(state.actions.timerId)
+    clearInterval(state.actions.countDownTimerId)
+    alert('Game Over! O seu resultado foi: ' + state.values.result)
 }
 
 function playSound(audioName){
@@ -55,6 +60,12 @@ function addListenerHitBox(){
                 state.values.result++
                 state.view.score.textContent = state.values.result
                 state.values.hitPosition = null
+            }else{
+                state.values.currentLives--
+                state.view.lives.textContent = `x${state.values.currentLives}`
+                if(state.values.currentLives <= 0){
+                    gameOver()
+                }
             }
         })
     })
