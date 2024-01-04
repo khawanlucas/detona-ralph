@@ -1,3 +1,3 @@
 ## 💻 Projeto DIO 
 
-Do Módulo "Criando um Jogo Detona Ralph com JavaScript"
+Do Módulo "Criando um Jogo do Detona Ralph com JavaScript"
